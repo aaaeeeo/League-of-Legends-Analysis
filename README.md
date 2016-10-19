@@ -10,6 +10,6 @@
 ``package edu.uchicago.mpcs53013.GSD``
 
 ### GSD Serialization:
-/thrift-hadoop-zuomingli/src/main/java/edu/uchicago/mpcs53013/GSDHadoopThriftSerialization.java
-Example GSD op files in:
+/thrift-hadoop-zuomingli/src/main/java/edu/uchicago/mpcs53013/GSDHadoopThriftSerialization.java   
+#### Example GSD op files in:  
 /thrift-hadoop-zuomingli/GSD
