@@ -1,4 +1,5 @@
 # 6-1, 6-2
+I'm assuming flighs data and weather data of 2016 is put in `/inputs`   
 
 ### Compute and store view as `(origin, dest, type, delay, count)`  
 `type`: the weather type (CLEAR, FOG, RAIN...)   
@@ -17,4 +18,8 @@
 
 
 # 6-3
+I'm assuming required jars is in `/usr/local/mpcs53013`     
+Configured LZO Compression refering to:  
+https://docs.hortonworks.com/HDPDocuments/HDP2/HDP-2.3.4-Win/bk_HDP_Install_Win/content/LZOCompression.html  
+
 Use elephant-bird's LzoThriftBlockPigStorage to store flight data.

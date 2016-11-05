@@ -1,11 +1,9 @@
-
-REGISTER ./piggybank.jar;
-REGISTER ./elephant-bird-core-4.14.jar;
-REGISTER ./elephant-bird-pig-4.14.jar;
-REGISTER ./elephant-bird-hadoop-compat-4.14.jar;
-REGISTER ./libthrift-0.9.0.jar;
+REGISTER /usr/local/mpcs53013/piggybank.jar;
+REGISTER /usr/local/mpcs53013/elephant-bird-core-4.14.jar;
+REGISTER /usr/local/mpcs53013/elephant-bird-pig-4.14.jar;
+REGISTER /usr/local/mpcs53013/elephant-bird-hadoop-compat-4.14.jar;
+REGISTER /usr/local/mpcs53013/libthrift-0.9.0.jar;
 REGISTER ./thrift_structure.jar;
-REGISTER ./hadoop-lzo-0.4.15.jar;
 
 -- step 1
 STATION_CODE_LINES = LOAD '/inputs/weathergeo/station_codes.txt' as line;
