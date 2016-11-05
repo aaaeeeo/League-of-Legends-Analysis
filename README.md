@@ -1,4 +1,4 @@
-## 6-1, 6-2
+# 6-1, 6-2
 
 ### Compute and store view as `(origin, dest, type, delay, count)`  
 `type`: the weather type (CLEAR, FOG, RAIN...)   
@@ -16,5 +16,5 @@
 ```
 
 
-## 6-3
+# 6-3
 Use elephant-bird's LzoThriftBlockPigStorage to store flight data.
