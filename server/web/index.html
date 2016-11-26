@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>LOL Analysis</title>
+</head>
+<body>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.0/css/bootstrap-select.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.0/js/bootstrap-select.min.js"></script>
+<script src="http://mourner.github.io/simpleheat/simpleheat.js"></script>
+
+<style type="text/css">
+	#background {
+	    position: fixed;
+	    top: 0;
+	    left: 0;
+	    width: 100%;
+	    height: 100%;
+	    background-image: url('http://i.ytimg.com/vi/xerJXLTGhv4/maxresdefault.jpg');
+	    background-repeat: repeat-y;
+	    background-attachment: fixed;
+	    background-size: 100%;
+	    opacity: 0.2;
+	    filter:alpha(opacity=80);
+	    z-index: -1;
+	}
+	div.dropdown-menu.open {
+	    position: static;
+	    display: block;
+	    min-height: inherit;
+	    max-height: 218px;
+	    overflow: hidden;
+	}
+	.dropdown-menu.inner {
+		max-height: 130px; 
+		overflow-y: auto;
+	}
+	::-webkit-scrollbar {
+	    -webkit-appearance: none;
+	    width: 7px;
+	}
+	::-webkit-scrollbar-thumb {
+	    border-radius: 4px;
+	    background-color: rgba(0,0,0,.5);
+	    -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
+	}
+	    body { text-align: center; font: 16px/1.4 "Helvetica Neue", Arial, sans-serif; }
+        a { color: #0077ff; }
+        .container { width: 1050px; height: 750px; margin: 0 auto; position: relative; text-align:left; border: 1px solid #ccc; }
+        .options { position: absolute; top: 0; right: 0; padding: 10px; background: rgba(255,255,255,0.6);
+            border-bottom: 1px solid #ccc; border-left: 1px solid #ccc; line-height: 1; }
+        .options input { width: 200px; }
+        .options label { width: 60px; float: left; text-align: right; margin-right: 10px; color: #555; }
+        .ghbtns { position: relative; top: 4px; margin-left: 5px; }
+
+/* Absolute Center Spinner */
+.loading {
+  position: fixed;
+  z-index: 999;
+  height: 2em;
+  width: 2em;
+  overflow: show;
+  margin: auto;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+/* Transparent Overlay */
+.loading:before {
+  content: '';
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.3);
+}
+
+/* :not(:required) hides these rules from IE9 and below */
+.loading:not(:required) {
+  /* hide "loading..." text */
+  font: 0/0 a;
+  color: transparent;
+  text-shadow: none;
+  background-color: transparent;
+  border: 0;
+}
+
+.loading:not(:required):after {
+  content: '';
+  display: block;
+  font-size: 10px;
+  width: 1em;
+  height: 1em;
+  margin-top: -0.5em;
+  -webkit-animation: spinner 1500ms infinite linear;
+  -moz-animation: spinner 1500ms infinite linear;
+  -ms-animation: spinner 1500ms infinite linear;
+  -o-animation: spinner 1500ms infinite linear;
+  animation: spinner 1500ms infinite linear;
+  border-radius: 0.5em;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.75) 1.5em 0 0 0, rgba(0, 0, 0, 0.75) 1.1em 1.1em 0 0, rgba(0, 0, 0, 0.75) 0 1.5em 0 0, rgba(0, 0, 0, 0.75) -1.1em 1.1em 0 0, rgba(0, 0, 0, 0.5) -1.5em 0 0 0, rgba(0, 0, 0, 0.5) -1.1em -1.1em 0 0, rgba(0, 0, 0, 0.75) 0 -1.5em 0 0, rgba(0, 0, 0, 0.75) 1.1em -1.1em 0 0;
+  box-shadow: rgba(0, 0, 0, 0.75) 1.5em 0 0 0, rgba(0, 0, 0, 0.75) 1.1em 1.1em 0 0, rgba(0, 0, 0, 0.75) 0 1.5em 0 0, rgba(0, 0, 0, 0.75) -1.1em 1.1em 0 0, rgba(0, 0, 0, 0.75) -1.5em 0 0 0, rgba(0, 0, 0, 0.75) -1.1em -1.1em 0 0, rgba(0, 0, 0, 0.75) 0 -1.5em 0 0, rgba(0, 0, 0, 0.75) 1.1em -1.1em 0 0;
+}
+
+	/* Animation */
+
+	@-webkit-keyframes spinner {
+	  0% {
+	    -webkit-transform: rotate(0deg);
+	    -moz-transform: rotate(0deg);
+	    -ms-transform: rotate(0deg);
+	    -o-transform: rotate(0deg);
+	    transform: rotate(0deg);
+	  }
+	  100% {
+	    -webkit-transform: rotate(360deg);
+	    -moz-transform: rotate(360deg);
+	    -ms-transform: rotate(360deg);
+	    -o-transform: rotate(360deg);
+	    transform: rotate(360deg);
+	  }
+	}
+	@-moz-keyframes spinner {
+	  0% {
+	    -webkit-transform: rotate(0deg);
+	    -moz-transform: rotate(0deg);
+	    -ms-transform: rotate(0deg);
+	    -o-transform: rotate(0deg);
+	    transform: rotate(0deg);
+	  }
+	  100% {
+	    -webkit-transform: rotate(360deg);
+	    -moz-transform: rotate(360deg);
+	    -ms-transform: rotate(360deg);
+	    -o-transform: rotate(360deg);
+	    transform: rotate(360deg);
+	  }
+	}
+	@-o-keyframes spinner {
+	  0% {
+	    -webkit-transform: rotate(0deg);
+	    -moz-transform: rotate(0deg);
+	    -ms-transform: rotate(0deg);
+	    -o-transform: rotate(0deg);
+	    transform: rotate(0deg);
+	  }
+	  100% {
+	    -webkit-transform: rotate(360deg);
+	    -moz-transform: rotate(360deg);
+	    -ms-transform: rotate(360deg);
+	    -o-transform: rotate(360deg);
+	    transform: rotate(360deg);
+	  }
+	}
+	@keyframes spinner {
+	  0% {
+	    -webkit-transform: rotate(0deg);
+	    -moz-transform: rotate(0deg);
+	    -ms-transform: rotate(0deg);
+	    -o-transform: rotate(0deg);
+	    transform: rotate(0deg);
+	  }
+	  100% {
+	    -webkit-transform: rotate(360deg);
+	    -moz-transform: rotate(360deg);
+	    -ms-transform: rotate(360deg);
+	    -o-transform: rotate(360deg);
+	    transform: rotate(360deg);
+	  }
+	}
+</style>
+
+<div id="background"></div>
+<div class="row">
+	<div class="col-sm-4">
+		<img src='https://signup.leagueoflegends.com/theme/signup_theme/img/signup_logo2_clean.png'></img>
+	</div>
+	<div class="col-sm-4">
+		<div><h1 style="color: blue;">League of Legends Analysis</h1></div>
+		<div><h3 style="color: blue;">by Zuoming LI @ UChicago</h3></div>
+	</div>
+	<div class="col-sm-2"></div>
+</div>
+	<h4 style="text-align: left;margin-left: 50px;color: red;">Draw a heatmap of killing positions from millions of matches from LOL. Filter blow and draw it! Enjoy!</h4>
+</div>
+<form role="form" class="container-fluid form-horizontal" id="filter-form">
+	<div class="row form-group" style="margin-top: 20px;margin-left: 20px;margin-right: 20px;">
+		<div class="col-md-2">
+		<label >Map</label>
+	    <select id="map_sp" class="selectpicker show-tick" data-width="100%" data-size="5" name="map">
+	      <!--<option value="1" disabled="">Legacy Summoner's Rift</option>-->
+	      <option selected value="11">Summoner's Rift</option>
+		  <option value="10">Twisted Treeline</option>
+		  <option value="12">Howling Abyss</option>
+		</select>
+		</div>
+
+		<div class="col-md-2">
+	    <label >Region</label>
+	    <select class="selectpicker" data-width="100%" multiple data-actions-box="true" data-live-search="true" data-size="5" name="region">
+		  <option selected value="NA">North America</option>
+		  <option selected value="KR">Korea</option>
+		  <option selected value="EUW">West Europe</option>
+		  <option selected value="BR">Brazil</option>
+		</select>
+		</div>
+  		
+  		<div class="col-md-2">
+	    <label >Version</label>
+	    <select class="selectpicker" data-width="100%" multiple data-actions-box="true" data-live-search="true" data-size="5" name="version">
+		  <option selected >6.10</option>
+		  <option selected >6.20</option>
+		  <option selected >6.21</option>
+		</select>
+		</div>
+
+		<div class="col-md-4">
+		<label >Queue Type</label>
+	    <select class="selectpicker" data-width="100%" multiple data-actions-box="true" data-live-search="true" data-size="5" name="queue">
+		    <option selected>CUSTOM</option>
+			<option selected>NORMAL_5x5_BLIND</option>
+			<option selected>RANKED_SOLO_5x5</option>
+			<option selected>RANKED_PREMADE_5x5</option>
+			<option selected>BOT_5x5</option>
+			<option selected>NORMAL_3x3</option>
+			<option selected>RANKED_PREMADE_3x3</option>
+			<option selected>NORMAL_5x5_DRAFT</option>
+			<option selected>ODIN_5x5_BLIND</option>
+			<option selected>ODIN_5x5_DRAFT</option>
+			<option selected>BOT_ODIN_5x5</option>
+			<option selected>BOT_5x5_INTRO</option>
+			<option selected>BOT_5x5_BEGINNER</option>
+			<option selected>BOT_5x5_INTERMEDIATE</option>
+			<option selected>RANKED_TEAM_3x3</option>
+			<option selected>RANKED_TEAM_5x5</option>
+			<option selected>BOT_TT_3x3</option>
+			<option selected>GROUP_FINDER_5x5</option>
+			<option selected>ARAM_5x5</option>
+			<option selected>ONEFORALL_5x5</option>
+			<option selected>FIRSTBLOOD_1x1</option>
+			<option selected>FIRSTBLOOD_2x2</option>
+			<option selected>SR_6x6</option>
+			<option selected>URF_5x5</option>
+			<option selected>ONEFORALL_MIRRORMODE_5x5</option>
+			<option selected>BOT_URF_5x5</option>
+			<option selected>NIGHTMARE_BOT_5x5_RANK1</option>
+			<option selected>NIGHTMARE_BOT_5x5_RANK2</option>
+			<option selected>NIGHTMARE_BOT_5x5_RANK5</option>
+			<option selected>ASCENSION_5x5</option>
+			<option selected>HEXAKILL</option>
+			<option selected>BILGEWATER_ARAM_5x5</option>
+			<option selected>KING_PORO_5x5</option>
+			<option selected>COUNTER_PICK</option>
+			<option selected>BILGEWATER_5x5</option>
+			<option selected>SIEGE</option>
+			<option selected>DEFINITELY_NOT_DOMINION_5x5</option>
+			<option selected>ARURF_5X5</option>
+			<option selected>TEAM_BUILDER_DRAFT_UNRANKED_5x5</option>
+			<option selected>TEAM_BUILDER_DRAFT_RANKED_5x5</option>
+			<option selected>TEAM_BUILDER_RANKED_SOLO</option>
+			<option selected>RANKED_FLEX_SR</option>
+		</select>
+		</div>
+
+		<div class="col-md-1">
+		<label >Win/Lose</label>
+	    <select class="selectpicker" data-width="100%" multiple data-size="5" name="win">
+		  <option selected value="1">Win</option>
+		  <option selected value="0">Lose</option>
+		</select>
+		</div>
+
+		<div class="col-md-1">
+		<label >Team</label>
+	    <select class="selectpicker" data-width="100%" multiple data-size="5" name="team">
+		  <option selected value="1">Blue</option>
+		  <option selected value="2">Red</option>
+		</select>
+		</div>
+  	</div>
+  	<button type="submit" id="form-submit" class="btn btn-success btn-lg" data-loading-text="<i class='fa fa-spinner fa-spin'></i> Trying hard to draw...">Draw it!</button>
+</form>
+<div class="container" style="margin-top: 20px;background-color: white;">
+	<div class="options">
+		<label>Max </label><input type="range" id="max" value="1" min="0.05" max="1.5" step="0.05"/><br />
+	    <label>Radius </label><input type="range" id="radius" value="1" min="0.75" max="3" step="0.25"/><br />
+	    <label>Blur </label><input type="range" id="blur" value="1" min="0" max="3" step="0.25"/>
+	</div>
+	<canvas id="canvas" width="1000" height="750"></canvas>
+</div>
+
+<img id='map10' src='/imgs/map10.png' hidden="true"></img>
+<img id='map11' src='/imgs/minimap-ig.png' hidden="true"></img>
+<img id='map12' src='/imgs/map12.png' hidden="true"></img>
+
+<div class="loading" hidden="true">Loading&#8230;</div>
+<script type="text/javascript">
+
+
+	point_data = [];
+	max_val = 1;
+
+	$(document).ready(function() {
+		//$('[data-class=selectpicker]').trigger('click');
+
+		//Plotly.plot('myDiv', data);
+		
+		drawmap();
+		$("#map_sp").on('changed.bs.select', function(event){
+			clear();
+			drawmap();
+		});
+
+		$("#filter-form").submit(function(event){
+	    	// cancels the form submission
+	    	$('#form-submit').button('loading');
+	    	$('.loading').show();
+		    event.preventDefault();
+		    var count = checkCount();
+		    //console.log(count);
+		    var url = "/pos"
+		    heat.radius(1,1);
+		    reset();
+		    if(checkCount()==54) {
+		    	heat.radius(1.5,1);
+		    	document.getElementById('radius').value = 1.5;
+		    	url = "/pos_all";
+		    }
+		    submitForm(url, $(this).serialize());
+		});
+		function submitForm(url, params){
+		    // Initiate Variables With Form Content
+		    var name = $("#name").val();
+		    var email = $("#email").val();
+		    var message = $("#message").val();
+		    $.ajax({
+		        type: "POST",
+		        url: url,
+		        data: params,
+		        dataType: "json",
+		        success : function(data){
+		            //data = data.concat(data);
+		            max_val = data['max'];
+		            console.log(max_val);
+		            heat.data(data['data']).max(max_val);
+		            //heat.resize();
+					frame = frame || window.requestAnimationFrame(draw);
+		        },
+		        error : function(data){
+		        	alert("ERROR"+data.status);
+		        	$('#form-submit').button('reset');
+		        	$('.loading').hide();
+		        	console.log(data);
+		        },
+		    });
+		}
+
+		function checkCount() {
+			var $selects = $('select');
+			var flag = true;
+			var count = 0;
+		    $selects.each(function() {
+		        var $this = $(this),
+		            selected = $this.find('option:selected').length;
+		        //console.log(selected);
+		        count += selected;
+			});
+			return count;
+		}
+
+	});
+
+	window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
+                               window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+	function get(id) {
+	    return document.getElementById(id);
+	}
+
+	get('map11').onload = function(){
+		    drawmap();
+	};
+
+	data = []
+	heat = simpleheat('canvas').data(data).max(18);
+	grad = {
+        0.2: 'blue',
+        0.4: 'cyan',
+        0.5: 'lime',
+        0.6: 'yellow',
+        1.0: 'red'
+    };
+	//heat.gradient(grad);
+	var frame;
+
+	function reset() {
+		document.getElementById('radius').value = 1;
+		document.getElementById('max').value = 1;
+		document.getElementById('blur').value = 1;
+	};
+
+	function clear() {
+		var canvas=document.getElementById('canvas');
+		var ctx=canvas.getContext('2d');
+		ctx.clearRect(0, 0, canvas.width, canvas.height);
+	};
+
+	function drawmap(mapid) {
+			mapid = $("#map_sp").serialize().split('=')[1];
+			var c=document.getElementById("canvas");
+		    var ctx=c.getContext("2d");
+		    var img=document.getElementById("map" + mapid);
+		    var dx=0, dy=0;
+		    if(mapid==11) {
+		    	dx=0;
+		    	dy=10;
+		    } else if(mapid==10) {
+		    	dx=5;
+		    	dy=-20;
+		    } else if(mapid==12) {
+		    	dx=0;
+		    	dy=128;
+		    }
+		    ctx.drawImage(img,dx,dy);
+	};
+
+	function draw() {
+		//reset();
+		var canvas=document.getElementById('canvas');
+		var ctx=canvas.getContext('2d');
+		ctx.save();
+		ctx.translate(0, canvas.height);
+		ctx.scale(1, -1);
+	    console.time('draw');
+	    heat.draw();
+	    console.timeEnd('draw');
+	    ctx.restore();
+
+	   	$('.loading').hide();
+	    $('#form-submit').button('reset');
+	    frame = null;
+
+	    ctx.globalAlpha = 0.3;
+	    drawmap();
+	    ctx.globalAlpha = 1;
+	};
+
+	//draw();
+	var radius = get('radius'),
+	    blur = get('blur'),
+	    max = get('max'),
+	    changeType =  'onchange';
+	radius[changeType] = blur[changeType] = function (e) {
+		$('.loading').show();
+	    setTimeout(function(){
+  			heat.radius(+radius.value, +blur.value);
+	    	draw();
+		}, 100);
+	};
+	max[changeType] = function (e) {	
+		$('.loading').show();
+		setTimeout(function(){
+  			heat.max(max_val * max.value);
+	    	draw();
+		}, 100);
+	};
+
+</script>
+</body>
+</html>
