@@ -4,7 +4,7 @@ Zuoming Li
 
 ## Description
 
-My project draw and show a heatmap of killing positions from matches data from host online game League of Legends.  
+My project draw and show a heatmap of killing positions from matches data from hot online game League of Legends.  
 
 Website URL: http://104.197.248.161:8080/    
 Source code in Gitlab: https://gitlab.com/aaaeeeo/2016mpcs53013-zuomingli/tree/project    
