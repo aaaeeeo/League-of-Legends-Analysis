@@ -31,7 +31,7 @@ Read pre-downloaded json data and store into **hdfs sequence file** with **thrif
 
 #### Mapreduce
 **Source code**: Pig script `batch.pig` and `myudfs.py`  
-**Table on Hbase**: `match_pos`       
+**Batch view table on Hbase**: `match_pos`       
 I used pig to compute each catogory's counts of poistions, transform them to json format and store to **Hbase**. Like `key:"11_NA_6.21_TEAM_BUILDER_DRAFT_RANKED_5x5_1_2", value:[321,122,12],[122,31,2]`.      
 And I computed and stored all data of specific map specially.    
 **Python UDF** is used in pig script.    
@@ -59,6 +59,7 @@ I used python script download new matches data from API and put them in **kafka*
 #### Storm
 **Source code**: Java project `matchTopology`    
 **Storm task on cluster**: `zuomingli-match-live`   
+**Speed view table on Hbase**: `match_pos_speed`   
 
 ## Deploy
 On hdp-m:    
