@@ -13,6 +13,7 @@ Deploy files on cluster:
 #### Usage Note
 1. Select all catogories with out filtering has special batch view, thus should be fast. But filtering don't. In this case, I have put the pressure on front-end visualization lirary which will result select too many catogories on some computers slow.
 2. Region ***Brazil*** don't have any batch view data. Select it only on region filter to test speed layer.   
+3. Drawing options are not optimized. So, `Max` and `Radius` may need to be adjusted in order to get a beautiful heatmap.  
 
 
 ## Data
