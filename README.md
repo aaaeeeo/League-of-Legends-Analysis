@@ -4,12 +4,16 @@ Zuoming Li
 
 ## Description
 
-My project draw and show a heatmap of killing positions from matches data from host online game League of Legends.  
+My project draw and show a heatmap of killing positions from matches data from hot online game League of Legends.  
 
 Website URL: http://104.197.248.161:8080/    
 Source code in Gitlab: https://gitlab.com/aaaeeeo/2016mpcs53013-zuomingli/tree/project    
 Deploy files on cluster:
-`@hdp-m:/home/lee_zuoming/` and `@webserver:/home/lee_zuoming/`
+`@hdp-m:/home/lee_zuoming/` and `@webserver:/home/lee_zuoming/`    
+#### Usage Note
+1. Select all catogories with out filtering has special batch view, thus should be fast. But filtering don't. In this case, I have put the pressure on front-end visualization lirary which will result select too many catogories on some computers slow.
+2. Region ***Brazil*** don't have any batch view data. Select it only on region filter to test speed layer.   
+
 
 ## Data
 #### Source
@@ -36,7 +40,9 @@ And I computed and stored all data of specific map specially.
 #### Back-End
 **Source code**: `server.py`   
 **Python Bottle** server listening on port 8080.    
-**happybase** is used to connect hbase from python.    
+**gevent** is used to muti-thread the server.    
+**happybase** is used to connect hbase from python.  
+**gzip** is used to compress json data.   
 
 #### Front-End
 **Source code**: `web`    
