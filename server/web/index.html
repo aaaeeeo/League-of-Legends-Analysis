@@ -4,14 +4,9 @@
 	<title>LOL Analysis</title>
 </head>
 <body>
-<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.0/css/bootstrap-select.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.0/js/bootstrap-select.min.js"></script>
-<script src="http://mourner.github.io/simpleheat/simpleheat.js"></script>
-
 <style type="text/css">
 	#background {
 	    position: fixed;
@@ -300,10 +295,13 @@
 <img id='map11' src='/imgs/minimap-ig.png' hidden="true"></img>
 <img id='map12' src='/imgs/map12.png' hidden="true"></img>
 
-<div class="loading" hidden="true">Loading&#8230;</div>
+<div class="loading">Loading&#8230;</div>
+
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.0/js/bootstrap-select.min.js"></script>
+<script src="http://mourner.github.io/simpleheat/simpleheat.js"></script>
 <script type="text/javascript">
-
-
 	point_data = [];
 	max_val = 1;
 
@@ -383,7 +381,8 @@
 	}
 
 	get('map11').onload = function(){
-		    drawmap();
+		drawmap();
+		$('.loading').hide();
 	};
 
 	data = []
@@ -411,22 +410,22 @@
 	};
 
 	function drawmap(mapid) {
-			mapid = $("#map_sp").serialize().split('=')[1];
-			var c=document.getElementById("canvas");
-		    var ctx=c.getContext("2d");
-		    var img=document.getElementById("map" + mapid);
-		    var dx=0, dy=0;
-		    if(mapid==11) {
-		    	dx=0;
-		    	dy=10;
-		    } else if(mapid==10) {
-		    	dx=5;
-		    	dy=-20;
-		    } else if(mapid==12) {
-		    	dx=0;
-		    	dy=128;
-		    }
-		    ctx.drawImage(img,dx,dy);
+		mapid = $("#map_sp").serialize().split('=')[1];
+		var c=document.getElementById("canvas");
+	    var ctx=c.getContext("2d");
+	    var img=document.getElementById("map" + mapid);
+	    var dx=0, dy=0;
+	    if(mapid==11) {
+	    	dx=0;
+	    	dy=10;
+	    } else if(mapid==10) {
+	    	dx=5;
+	    	dy=-20;
+	    } else if(mapid==12) {
+	    	dx=0;
+	    	dy=128;
+	    }
+	    ctx.drawImage(img,dx,dy);
 	};
 
 	function draw() {
@@ -469,7 +468,7 @@
 	    	draw();
 		}, 100);
 	};
-
+	$('.loading').hide();
 </script>
 </body>
 </html>
