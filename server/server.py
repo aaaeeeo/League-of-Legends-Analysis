@@ -63,7 +63,7 @@ def pos():
     pos_str = str(pos_counts).replace(' ','')
     max_val = (counts.most_common(1)[0][1] if len(counts)>0 else 0)
     print max_val
-    res = '{"max":'+str(max_val*2) + ',"data":'+ pos_str +'}'
+    res = '{"max":'+str(max_val) + ',"data":'+ pos_str +'}'
     connection.close()
     out = StringIO.StringIO()
     with gzip.GzipFile(fileobj=out, mode="w") as f:
@@ -79,7 +79,7 @@ def do_count(counts, json_str, paras):
     pos_list = json.loads('['+json_str+']')
     pos_key_list = [ ('%s,%s'%(x[0],x[1]), x[2]) for x in pos_list]
     for tup in pos_key_list:
-        counts[tup[0]] += 1
+        counts[tup[0]] += tup[1]
     if paras is not None:
         cache[paras] = collections.Counter(counts)
     return counts

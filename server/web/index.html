@@ -178,8 +178,13 @@
 		<img src='https://signup.leagueoflegends.com/theme/signup_theme/img/signup_logo2_clean.png'></img>
 	</div>
 	<div class="col-sm-4">
-		<div><h1 style="color: blue;">League of Legends Analysis</h1></div>
-		<div><h3 style="color: blue;">by Zuoming LI @ UChicago</h3></div>
+	<!--
+		<div class="well well-lg"><h1 style="color: blue;">League of Legends Analysis</h1>
+		<h3 style="color: blue;">by Zuoming LI @ UChicago</h3></div>
+	-->
+	<div class="page-header">
+	  <h1 style="color: blue;">League of Legends Analysis</br> <small style="color: darkblue;">by Zuoming LI @ UChicago</small></h1>
+	</div>
 	</div>
 	<div class="col-sm-2"></div>
 </div>
@@ -343,7 +348,7 @@
 		        data: params,
 		        success : function(data){
 		            //data = data.concat(data);
-		            max_val = data['max'];
+		            max_val = data['max']*0.8;
 		            console.log(max_val);
 		            heat.data(data['data']).max(max_val);
 		            //heat.resize();
