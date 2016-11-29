@@ -11,9 +11,8 @@ Source code in Gitlab: https://gitlab.com/aaaeeeo/2016mpcs53013-zuomingli/tree/p
 Deploy files on cluster:
 `@hdp-m:/home/lee_zuoming/` and `@webserver:/home/lee_zuoming/`    
 #### Usage Note
-1. Select all catogories with out filtering has special batch view, thus should be fast. But filtering don't. In this case, I have put the pressure on front-end visualization lirary which will result select too many catogories on some computers slow.
-2. Region ***Brazil*** don't have any batch view data. Select it only on region filter to test speed layer.   
-3. Drawing options are not optimized. So, `Max` and `Radius` may need to be adjusted in order to get a beautiful heatmap.  
+1. Region ***Brazil*** don't have any batch view data. Select it only on region filter to test speed layer.   
+2. I have tried to optimize drawing options, but `Max` and `Radius` may still need to be adjusted in order to get a beautiful heatmap.  
 
 
 ## Data
