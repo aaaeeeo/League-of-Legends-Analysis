@@ -284,8 +284,8 @@
 </form>
 <div class="container" style="margin-top: 20px;background-color: white;">
 	<div class="options">
-		<label>Max </label><input type="range" id="max" value="1" min="0.05" max="2" step="0.05"/><br />
-	    <label>Radius </label><input type="range" id="radius" value="1" min="0.6" max="3" step="0.2"/><br />
+		<label>Max </label><input type="range" id="max" value="1" min="0.1" max="2" step="0.05"/><br />
+	    <label>Radius </label><input type="range" id="radius" value="1.5" min="1.1" max="3.1" step="0.2"/><br />
 	    <label>Blur </label><input type="range" id="blur" value="1" min="0" max="3" step="0.25"/>
 	</div>
 	<canvas id="canvas" width="1000" height="750"></canvas>
@@ -313,7 +313,7 @@
 		drawmap();
 		$("#map_sp").on('changed.bs.select', function(event){
 			clear();
-			data = [];
+			heat.data([]);
 			drawmap();
 		});
 
@@ -325,11 +325,9 @@
 		    var count = checkCount();
 		    //console.log(count);
 		    var url = "/pos"
-		    heat.radius(1,1);
+		    heat.radius(1.5,1);
 		    reset();
 		    if(checkCount()==54) {
-		    	heat.radius(1.5,1);
-		    	document.getElementById('radius').value = 1.5;
 		    	url = "/pos_all";
 		    }
 		    submitForm(url, $(this).serialize());
@@ -399,7 +397,7 @@
 	var frame;
 
 	function reset() {
-		document.getElementById('radius').value = 1;
+		document.getElementById('radius').value = 1.5;
 		document.getElementById('max').value = 1;
 		document.getElementById('blur').value = 1;
 	};
